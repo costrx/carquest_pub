@@ -15,15 +15,15 @@ These are the endpoints (JSON / GET or POST)
 
 ## routine
 
-I used Fetch API to sketch out the routine. Use Chrome with Developer Tools to open `modo_monday.html` - this way you can see the console messages (image at end of this page). I just used urls with Fetch API, which means method is GET. The code is incomplete, I have not managed to list the cars in the choosen carkpark or determine whether they are free - since that would come after it. I think it is a JSON data formatting issue, I am stuck there. Still, I think I have a good idea of what should be done. 
+I used Fetch API to sketch out a working routine. It does not take everything into account, but it is a good starting point. To check out the code and what it does, use Chrome with Developer Tools to open `modo_monday.html` - this way you can see the console messages (image at end of this page). I just used urls with Fetch API, which means the method is GET. 
 
 ### (1) Check which carparks are nearby. 
-Each car is assigned to a specific parking spot/base where it can be rented from and must be returned to. Use the `latitude` and `logitude` values of your hotel and I suggest using the `distance` parameter with 500 meters. If you think there are too many finds, you can decrease this distance but the chance of finding an available car becomes smaller.
+Each car is assigned to a specific parking spot/base where it can be rented from and should be returned to. Use the `latitude` and `logitude` values of your hotel and I suggest using the `distance` parameter with 500 meters. If you think there are too many finds, you can decrease this distance but the chance of finding an available car becomes smaller.
 ```
 https://bookit.modo.coop/api/v2/nearby?lat=48.42139&long=-123.36723&distance=500
 ```
 You get a number of 3-digit `LocationID`s that are nearby, I got six. 
-`Neighbourhood` is a parameter on the carparks (`LocationID`s), so you could also list carparks in your own neighbourhood (Downtown) or adjecent to it (Harris Green, for example), but using the coordinates with distance is probably a more efficient move. 
+`Neighbourhood` is a parameter on the carparks (`LocationID`s), so you could also list carparks in your own neighbourhood (Downtown) or adjecent to it (Harris Green, for example), but using the coordinates with distance is probably a more efficient move. This may just be relevant if you grow to like an area more and the distance is not the main concern,
 
 The result that comes back is a *ranked list*, so the first one is the closest and the last one is the most far away carpark.  
 
@@ -43,8 +43,9 @@ An example `LocationID` (carpark):
         "ExceptionClass": null
       }
 ```
+Latitude and longitude are variables, so you could use this routine to search for cars anywhere else.
 ### (2) Query all the modo cars and narrow down the results to the chosen carpark. 
-This give you a gigantic list of Modo's active cars with all their details.
+This give you a gigantic list of Modo's active cars (alomst 900) with all the car details and their booking information.
 ```
 https://bookit.modo.coop/api/v2/car_list
 ```
