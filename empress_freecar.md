@@ -90,11 +90,12 @@ Note that **both** need to be null. You timzone in Victoria is America/Vancouver
 
 If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list untill you find one. Or theoretically there could be no cars and then you need to enlarge your search radius. I found one car in that carpark all the time and its never booked. I am not sure how likely this is, hope it is not a oversight on my part. The code currently does not check for more cars, it may need some improvement in this aspect.
 ### (4) Get the full details of the closest carpark
-- Now that we know there is a free car in it, get the closest carpark's details.
+Now that we know there is a free car in it, get the closest carpark's details.
 ```
 https://bookit.modo.coop/api/v2/location_list?location_id=431
 ```
 This step is necessary because the list of the nearest carparks (step 1) does not contain the an address or a name for the carpark, only the geocordinates.
+
 An example `LocationID` (carpark):
 ```
 "Locations": {
