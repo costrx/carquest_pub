@@ -85,12 +85,13 @@ This is what one car entry looks like:
       }
 ```
 Use the `LocationID` obtained in the first step to and filter to the cars that are currenly in that choosen location. 
-### (3)
-Get the carpark's details (geolocation) for later.
-```
-https://bookit.modo.coop/api/v2/location_list?location_id=431
-```
-### (4) Check if there is an available car in the closest carpark.
+
+This part was fairly tedious for me, I needed to perform some JSON conversion on the received data process it later otherwise I could not search it well.
+What I got back from the API call seems to be a complex nested JSON object, and I needed a JSON array to feed to the search. There may be an easier solution than mine.
+
+After the convsersion is done, filtered out the (only) car that is in the choosen spot.
+
+### (3) Check if there is an available car in the closest carpark.
 You found which cars are in the closest carpark, now send a query the first one is available:
 ```
 https://bookit.modo.coop/api/v2/car_list?car_id=28
@@ -108,7 +109,11 @@ Nothing booked, free car:
 Note that **both** need to be null. You timzone in Victoria is America/Vancouver (PDT) and the offset (difference to Greenwich Time/GMT) is -07:00 or in seconds -25200.
 
 If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list untill you find one. Or theoretically there could be no cars and then you need to enlarge your search radius. I found one car in that carpark all the time and its never booked. I am not sure how likely this is, hope it is not a oversight on my part. The code currently does not check for more cars, it may need some improvement in this aspect.
-
+### (4) Show the properties 
+- Now that we know there is a free car in it, get the closest carpark's details.
+```
+https://bookit.modo.coop/api/v2/location_list?location_id=431
+```
 ### (5) Show the properties of the available car and the closest carpark to the user.
 Get the availabel cars' details to display the in the browser/app window. Make sure you show `Make` `Model` and `Colour`, so the car is easy to find.
 ```
@@ -116,9 +121,8 @@ https://bookit.modo.coop/api/v2/car_list?car_id=961
 ```
 I assumed there would be multiple finds/cars that you can choose from. If you come across this scenarion, you could also list accessories of the availble cars to help you choose.
 
-### stuck: my JSON/filter problem
-
-I have a list of all cars but cannot narrow it down. Think what I got is a complex nested JSON object. Keys are the car `ID`s and the value is all the car data including the same car `ID` again. In this format, I could not manage to filter it (error is similar to ?uncaught promise not a function?). If I managed to remove the key element from all cars, and just have an array of cardata without the initial CarID as the key, think the filter would work. Who know, maybe it is another problem, but I am not getting there yet. I am not displaying any finding on the html page because it is not entirely sure that there is a free car in the carpark, checking needs to be done.
-
 ### Chrome and devtools for console log
 ![Chrome and devtools](chrome_devtool.png "Chrome and devtools")
+
+### Miscallenous issues
+
