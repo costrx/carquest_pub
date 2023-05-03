@@ -23,7 +23,9 @@ Each car is assigned to a specific parking spot/base where it can be rented from
 ```
 https://bookit.modo.coop/api/v2/nearby?lat=48.42139&long=-123.36723&distance=500
 ```
-You get a number of 3-digit `LocationID`s that are nearby, I got six. 
+The latitude and longitude in the code are variables, so you could use this routine to search for cars anywhere else.
+
+So, what comes back is a number of 3-digit `LocationID`s that are nearby, I got six. 
 `Neighbourhood` is a parameter on the carparks (`LocationID`s), so you could also list carparks in your own neighbourhood (Downtown) or adjecent to it (Harris Green, for example), but using the coordinates with distance is probably a more efficient move. This may just be relevant if you grow to like an area more and the distance is not the main concern,
 
 The result that comes back is a *ranked list*, so the first one is the closest and the last one is the most far away carpark.  
@@ -44,7 +46,10 @@ An example `LocationID` (carpark):
         "ExceptionClass": null
       }
 ```
-Latitude and longitude are variables, so you could use this routine to search for cars anywhere else.
+- Get the closest carpark's details (geolocation) for later.
+```
+https://bookit.modo.coop/api/v2/location_list?location_id=431
+```
 ### (2) Query all the modo cars and narrow down the results to the chosen carpark. 
 This give you a gigantic list of Modo's active cars (alomst 900) with all the car details and their booking information.
 ```
