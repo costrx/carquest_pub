@@ -17,6 +17,7 @@ These are the endpoints (JSON / GET or POST)
 
 I used Fetch API to sketch out a working routine. It does not take everything into account, but it is a good starting point. To check out the code and what it does, use Chrome with Developer Tools to open `modo_monday.html` - this way you can see the console messages (image at end of this page). I just used urls with Fetch API, which means the method is GET. 
 
+Made comments in the code to indicate which section does what, they are allcaps.
 ### (1) Check which carparks are nearby. 
 Each car is assigned to a specific parking spot/base where it can be rented from and should be returned to. Use the `latitude` and `logitude` values of your hotel and I suggest using the `distance` parameter with 500 meters. If you think there are too many finds, you can decrease this distance but the chance of finding an available car becomes smaller.
 ```
@@ -79,8 +80,13 @@ This is what one car entry looks like:
       }
 ```
 Use the `LocationID` obtained in the first step to and filter to the cars that are currenly in that choosen location. 
-### (3) Check if there is an available car in the closest carpark.
-You found which cars are in the closest carpark, now send a query specifically for each one to see if it is available:
+### (3)
+Get the carpark's details (geolocation) for later.
+```
+https://bookit.modo.coop/api/v2/location_list?location_id=431
+```
+### (4) Check if there is an available car in the closest carpark.
+You found which cars are in the closest carpark, now send a query the first one is available:
 ```
 https://bookit.modo.coop/api/v2/car_list?car_id=28
 ```
@@ -96,21 +102,14 @@ Nothing booked, free car:
 ```
 Note that **both** need to be null. You timzone in Victoria is America/Vancouver (PDT) and the offset (difference to Greenwich Time/GMT) is -07:00 or in seconds -25200.
 
-If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list untill you find one. Or theoretically there could be no cars and then you need to enlarge your search radius.
+If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list untill you find one. Or theoretically there could be no cars and then you need to enlarge your search radius. I found one car in that carpark all the time and its never booked. I am not sure how likely this is, hope it is not a oversight on my part. The code currently does not check for more cars, it may need some improvement in this aspect.
 
-### (4) Show the properties for the closest carpark with an available car to the user.
-Get the carpark's details to display the in the browser/app window.
-```
-https://bookit.modo.coop/api/v2/location_list?location_id=431
-```
-### (5) Show the properties of the available cars (make, color) in the closest carpark to the user.
+### (5) Show the properties of the available car and the closest carpark to the user.
 Get the availabel cars' details to display the in the browser/app window. Make sure you show `Make` `Model` and `Colour`, so the car is easy to find.
 ```
 https://bookit.modo.coop/api/v2/car_list?car_id=961
 ```
-I assumed there would be multiple finds/cars that you can choose from, so you may also list accessories of the availble cars to help you choose.
-
-- new coordinates if the ride is not from the hotle, but lets say maybe your fav breakfast/hangout place or somewhere else.
+I assumed there would be multiple finds/cars that you can choose from. If you come across this scenarion, you could also list accessories of the availble cars to help you choose.
 
 ### stuck: my JSON/filter problem
 
