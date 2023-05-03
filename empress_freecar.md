@@ -120,7 +120,7 @@ I assumed there would be multiple finds/cars that you can choose from. If you co
 
 ### Chrome and devtools for console log
 ![Chrome and devtools](chrome_devtool.png "Chrome and devtools")
-
+A PIC HERE PLEASE.
 ### Miscallenous issues
 
 - research cars geocoordintes are they in park
