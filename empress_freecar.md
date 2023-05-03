@@ -123,3 +123,12 @@ I assumed there would be multiple finds/cars that you can choose from. If you co
 
 ### Miscallenous issues
 
+- research cars geocoordintes are they in park
+- If only `EndTime` is, then it is an ongoing booking, so the car is not free.
+- car in two locations? is this commuting - car number 1037, planned journey to another LocationID, not the origin one
+- if future booking is on car (Epoch time check) / StartTime and Endtime are NOT null
+- if no free car is found in parking spot, need to start rerun carsearch using next closest carpark
+- users seem to rent from 6am to 4pm - for 10 hrs 1037 and 1343 (could just be random occurance)
+- lot of cars not in use?
+- next car in parking lot?
+- SPELLCHECK
