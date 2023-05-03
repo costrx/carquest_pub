@@ -28,24 +28,8 @@ The latitude and longitude in the code are variables, so you could use this rout
 So, what comes back is a number of 3-digit `LocationID`s that are nearby, I got six. 
 `Neighbourhood` is a parameter on the carparks (`LocationID`s), so you could also list carparks in your own neighbourhood (Downtown) or adjecent to it (Harris Green, for example), but using the coordinates with distance is probably a more efficient move. This may just be relevant if you grow to like an area more and the distance is not the main concern,
 
-The result that comes back is a *ranked list*, so the first one is the closest and the last one is the most far away carpark.  
+The result that comes back is a *ranked list*, so the first one is the closest and the last one is the most far away carpark. 
 
-An example `LocationID` (carpark):
-
-```
-"Locations": {
-      "802": {
-        "ID": "802",
-        "Name": "Rupert Terrace",
-        "ShortDescription": "Victoria - Rupert Terrace & Quadra Street",
-        "Region": "Greater Victoria",
-        "City": "Victoria",
-        "Neighbourhood": "Downtown Victoria",
-        "Latitude": "48.420932",
-        "Longitude": "-123.361846",
-        "ExceptionClass": null
-      }
-```
 ### (2) Query all the modo cars and narrow down the results to the chosen carpark. 
 This give you a gigantic list of Modo's active cars (alomst 900) with all the car details and their booking information.
 ```
@@ -111,6 +95,21 @@ If there are no available cars in the nearest carpark, start checking the second
 https://bookit.modo.coop/api/v2/location_list?location_id=431
 ```
 This step is necessary because the list of the nearest carparks (step 1) does not contain the an address or a name for the carpark, only the geocordinates.
+An example `LocationID` (carpark):
+```
+"Locations": {
+      "802": {
+        "ID": "802",
+        "Name": "Rupert Terrace",
+        "ShortDescription": "Victoria - Rupert Terrace & Quadra Street",
+        "Region": "Greater Victoria",
+        "City": "Victoria",
+        "Neighbourhood": "Downtown Victoria",
+        "Latitude": "48.420932",
+        "Longitude": "-123.361846",
+        "ExceptionClass": null
+      }
+```
 ### (5) Show the properties of the available car and the closest carpark to the user.
 Get the available cars' details to display the in the browser/app window. Make sure you show `Make` `Model` and `Colour`, so the car is easy to find.
 ```
