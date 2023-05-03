@@ -46,10 +46,6 @@ An example `LocationID` (carpark):
         "ExceptionClass": null
       }
 ```
-- Get the closest carpark's details (geolocation) for later.
-```
-https://bookit.modo.coop/api/v2/location_list?location_id=431
-```
 ### (2) Query all the modo cars and narrow down the results to the chosen carpark. 
 This give you a gigantic list of Modo's active cars (alomst 900) with all the car details and their booking information.
 ```
@@ -109,13 +105,14 @@ Nothing booked, free car:
 Note that **both** need to be null. You timzone in Victoria is America/Vancouver (PDT) and the offset (difference to Greenwich Time/GMT) is -07:00 or in seconds -25200.
 
 If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list untill you find one. Or theoretically there could be no cars and then you need to enlarge your search radius. I found one car in that carpark all the time and its never booked. I am not sure how likely this is, hope it is not a oversight on my part. The code currently does not check for more cars, it may need some improvement in this aspect.
-### (4) Show the properties 
+### (4) Get the full details of the closest carpark
 - Now that we know there is a free car in it, get the closest carpark's details.
 ```
 https://bookit.modo.coop/api/v2/location_list?location_id=431
 ```
+This step is necessary because the list of the nearest carparks (step 1) does not contain the an address or a name for the carpark, only the geocordinates.
 ### (5) Show the properties of the available car and the closest carpark to the user.
-Get the availabel cars' details to display the in the browser/app window. Make sure you show `Make` `Model` and `Colour`, so the car is easy to find.
+Get the available cars' details to display the in the browser/app window. Make sure you show `Make` `Model` and `Colour`, so the car is easy to find.
 ```
 https://bookit.modo.coop/api/v2/car_list?car_id=961
 ```
