@@ -1,15 +1,17 @@
 # carquest
-These are the steps to find nearby cars that are available for the next 12 hours.
+First of all, a great holiday to you - hope you are having a good time already.
 
-Modo makes it very easy to query their cars' details. They got [nice docs](https://bookit.modo.coop/api/v2#car_list) for their API, but I tried to get the gist of what you need to do here. No need to authenticate, but remember this is only for getting the information. Just reading the information from the servers, you need to use the app in the end to make a booking. I am not detailing the endpoints here, please see their docs for futher info.
+So, these are the steps to find nearby cars that are available for the next 12 hours.
+
+Modo makes it easy to query their cars' details. They got [nice docs](https://bookit.modo.coop/api/v2#car_list) for their API, but I tried to get the gist of what you need to do here. No need to authenticate, but remember this is only for getting the information. We are just reading the information from the servers, you need to use the app in the end to make a booking. I am not detailing the endpoints in full here, please see their docs for futher info.
 
 These are the endpoints (JSON / GET or POST) 
 
 |  name |  ednpoint |  function |
 |---|---|---|
-|  Car List |  	https://bookit.modo.coop/api/v2/car_list |  all cars' details including base carpark |
-|  Location List | 	https://bookit.modo.coop/api/v2/location_list  |  carparks and their details  |
-|  Nearby | 	https://bookit.modo.coop/api/v2/nearby  | list nearby carparks (no car info) |
+|  Car List | https://bookit.modo.coop/api/v2/car_list |  all cars' details including base carpark|
+|  Location List | https://bookit.modo.coop/api/v2/location_list  |  carparks and their details (long&lat)|
+|  Nearby | https://bookit.modo.coop/api/v2/nearby  | list nearby carparks (no car info)|
 
 ## routine
 
