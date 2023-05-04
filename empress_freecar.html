@@ -19,7 +19,7 @@
         var lat_search = 48.42139;
         var long_search = -123.36723;
       console.log('hello, looking for the closest available car ...');
-      async function closelyParked() {                  // FIND NEAREST CARPARK
+      async function closelyParked() {                  // STEP 1: FIND NEAREST CARPARK
         const response = await fetch('https://bookit.modo.coop/api/v2/nearby?lat='+lat_search+'&long='+long_search+'&distance=500');
         const parkingData = await response.json();
         const closestCarPark = parkingData.Response.Locations[0].LocationID; 
@@ -35,15 +35,16 @@
         //console.log('details of the choosen are as follows');
         //console.log(CarParkDetails);
         window.CarParkDetails = CarParkDetails        
-      }      
+      };      
       async function GetCars() {                        // LOOK FOR A FREE CAR IN THE NEAREST CARPARK
         const response = await fetch('https://bookit.modo.coop/api/v2/car_list');
         const allCars = await response.json();
-        console.log('Checking if there is a free car in that carpark ...');
+        console.log('Checking if there is a car in that carpark ...');
         var justCars = allCars.Response.Cars;           
         // console.log(justCars);
         justCarsGood = JSON.stringify(justCars);
         // console.log(justCarsGood);
+      };
       function myCarWash() {                            // JSON DATA REFORMATTING SO IT IS EASY TO SEARCH THE FULL CAR LIST
             var obj = JSON.parse(justCarsGood);
             var cleanCars = [];             
@@ -51,14 +52,11 @@
                 cleanCars.push(obj[i]);
             // console.log(cleanCars);
             window.cleanCars = cleanCars           
-        }
-        myCarWash();
-        //  var carsRightSpot = cleanCars.filter(function(kereso){      // SEARCH FUNCTION BUT WENT FOR ANOTHER METHOD
-        //    return kereso.Location[0].LocationID == closestCarPark;
-        // })
+        };
+        function printCars(){
         // CHECKING THE JSON TO FIND THE CAR IN RIGHT LocationID with no StartTime or EndTime        
         const carsRightSpot = cleanCars.filter(element => element.Location[0].LocationID == closestCarPark && element.Location[0].StartTime == null && element.Location[0].LocationID.EndTime == null)
-        // DISPLAY THE DETAILS FOR THE FOUND CAR ON HTML PAGE
+        // STEP 5: DISPLAY THE DETAILS FOR THE FOUND CAR ON HTML PAGE
         console.log('Found you a free car:');
         console.log(carsRightSpot[0].Make, carsRightSpot[0].Model, carsRightSpot[0].Year, carsRightSpot[0].Colour);
         console.log('in the closest carpark:');
@@ -73,12 +71,13 @@
         document.getElementById("long_car").innerHTML = long_car; 
         let introduction = "Done:"
         document.getElementById("introduction").innerHTML = introduction;               
-        console.log('Feed the carpark long and lat into you map app and things just got easy.')
-      }      
-      function runner() {               // CALLIN THE FUNCTIONS
+        console.log('Feed the carpark long and lat into you map app and things just got easy.')};           
+      function runner() {               // CALLING THE FUNCTIONS
         return closelyParked()
+        .then(GetCars)
         .then(CarParkDetails)
-        .then(GetCars)                        
+        .then(myCarWash)
+        .then(printCars);                                
       } 
       runner();                 
       </script> 
