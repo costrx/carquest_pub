@@ -15,7 +15,7 @@ These are the endpoints (JSON / GET or POST)
 
 ## routine
 
-I used Fetch API to sketch out a working routine. It does not take everything into account, but it is a good starting point. To check out the code and what it does, use Chrome with Developer Tools to open `modo_monday.html` - this way you can see the console messages (image at end of this page). I just used urls with Fetch API, which means the method is GET. 
+I used Fetch API to sketch out a working routine. It does not take everything into account, but it is a good starting point. To check out the code and what it does, use Chrome with Developer Tools to open `empress_freecar.html` - this way you can see the console messages (image at end of this page). I just used urls with Fetch API, which means the method is GET. 
 
 Made comments in the code to indicate which section does what, they are allcaps.
 ### (1) Check which carparks are nearby. 
