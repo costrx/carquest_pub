@@ -31,7 +31,7 @@ So, what comes back is a number of 3-digit `LocationID`s that are nearby, I got 
 The result that comes back is a *ranked list*, so the first one is the closest and the last one is the most far away carpark. 
 
 ### (2) Query all the modo cars and reformat JSON data. 
-This give you a gigantic list of Modo's active cars (almost 900) with all the car details and their booking information.
+This gives you a gigantic list of Modo's cars (almost 900) with all the car details and their booking information.
 ```
 https://bookit.modo.coop/api/v2/car_list
 ```
