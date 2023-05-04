@@ -68,10 +68,10 @@ Use the `LocationID` obtained in the first step to and filter to the cars that a
 
 This part was fairly tedious for me, I needed to perform some JSON conversion on the received data process it later otherwise I could not search it well. What I got back from the API call seems to be a complex nested JSON object, and I needed a JSON array to feed to the search. There may be an easier solution than mine.
 
-After the conversion is done, filtered out the (only) car that is in the choosen spot.
-
 ### (3) Check if there is an available car in the closest carpark.
-You found which cars are in the closest carpark, now send a query the first one is available:
+
+Now that the JSON carlist the conversion is done, filtered out the (only) car that is in the choosen spot.
+You found which cars are in the closest carpark, now send a query for its details to see if it is available:
 ```
 https://bookit.modo.coop/api/v2/car_list?car_id=28
 ```
