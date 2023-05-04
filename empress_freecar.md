@@ -123,12 +123,9 @@ If there are multiple finds/cars, you could also list accessories of the availbl
 A PIC HERE PLEASE.
 ### Miscallenous issues
 
-- research cars geocoordintes are they in park
-- If only `EndTime` is, then it is an ongoing booking, so the car is not free.
-- car in two locations? is this commuting - car number 1037, planned journey to another LocationID, not the origin one
-- if future booking is on car (Epoch time check) / StartTime and Endtime are NOT null
-- if no free car is found in parking spot, need to start rerun carsearch using next closest carpark
+- If only `EndTime` exist and `StartTime`is `null`, then it is an ongoing booking? The car is not free.
+- car in two locations/`LocationID`s ? is this commuting ? car number 1037, planned journey to another LocationID, not the origin one
+- implement: if future booking is on car (Epoch time check) / StartTime and Endtime are NOT null but could be a free car. If StartTime is more than 44k secs away it is okay 
+- implement:  if no free car is found in first/closest parking spot, need to start rerun carsearch using next closest carpark
 - users seem to rent from 6am to 4pm - for 10 hrs 1037 and 1343 (could just be random occurance)
 - lot of cars not in use?
-- next car in parking lot?
-- SPELLCHECK
