@@ -64,13 +64,12 @@ This is what one car entry looks like:
         ]
       }
 ```
-Later on, we use the `LocationID` obtained in the first step to and filter to the cars that are currently in that chosen location. 
 
 JSON reformatting part was tedious for me, I needed to perform some JSON conversions on the received data process it later otherwise I could not search it well. What I get back from the API call seems to be a complex nested JSON object, and I need a JSON array to feed to the search. There may be an easier solution than mine.
 
 ### (3) Check if there is an available car in the closest carpark.
 
-Now that the JSON carlist the conversion is done, filter out the (only) car that is in the choosen spot and also check if it is available:
+Now that the JSON carlist the conversion is done, filter out the (only) car that is in the choosen spot and also check if it is available. Use the `LocationID` obtained in the first step to and filter to the cars that are currently in that chosen location and `StartTime` and `EndTime` to check its availability.
 
 Nothing booked, free car:
 ```
