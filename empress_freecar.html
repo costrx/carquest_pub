@@ -20,18 +20,18 @@
         var long_search = -123.36723;
       console.log('hello, looking for the closest available car ...');
 
-      async function closelyParked() {                  // STEP 1: FIND NEAREST CARPARK
+      async function closelyParked() {     // FIND NEAREST CARPARK
         const response = await fetch('https://bookit.modo.coop/api/v2/nearby?lat='+lat_search+'&long='+long_search+'&distance=500');
         const parkingData = await response.json();
         const closestCarPark = parkingData.Response.Locations[0].LocationID; 
         console.log('500m radius check using the coordinates of the Empress, the closest carpark is:');   
         console.log(closestCarPark);
-        // console.log('All results otherwise, so details of other 5 carparks within 500 meters:');  // TO USE LATER ON SHOULD THERE BE NO CAR IN NEAREST
+        // console.log('All results otherwise, so details of other 5 carparks within 500 meters:');  // FOR LATER IF NO CAR IN NEAREST
         // console.log(parkingData.Response.Locations);        
         window.closestCarPark = closestCarPark;                 
       };
 
-      async function CarParkDetails() {                 // GET FULL DETAILS OF THE NEAREST CARPARK
+      async function CarParkDetails() {    // GET FULL DETAILS OF THE NEAREST CARPARK
         const response = await fetch('https://bookit.modo.coop/api/v2/location_list?location_id='+closestCarPark+'');
         const CarParkDetails = await response.json();
         //console.log('details of the choosen are as follows');
@@ -39,7 +39,7 @@
         window.CarParkDetails = CarParkDetails        
       };      
 
-      async function GetCars() {                        // GET FULL CARLIST and JSON DATA REFORMATTING 
+      async function GetCars() {   // GET FULL CARLIST and JSON DATA REFORMATTING 
         const response = await fetch('https://bookit.modo.coop/api/v2/car_list');
         const allCars = await response.json();
         console.log('Checking if there is a car in that carpark ...');
@@ -55,13 +55,12 @@
             window.cleanCars = cleanCars;
       };
 
-      function myCarWash() {                            // LOOK FOR A FREE CAR IN THE NEAREST CARPARK            
-            // CHECKING THE JSON TO FIND THE CAR IN RIGHT LocationID with no StartTime or EndTime        
+      function myCarWash() {   // LOOK FOR A FREE CAR IN NEAREST CARPARK, LocationID with no StartTime or EndTime                    
             const carsRightSpot = cleanCars.filter(element => element.Location[0].LocationID == closestCarPark && element.Location[0].StartTime == null && element.Location[0].LocationID.EndTime == null);
             window.carsRightSpot = carsRightSpot           
         };
 
-      function printCars(){        // STEP 5: DISPLAY THE DETAILS FOR THE FOUND CAR ON HTML PAGE
+      function printCars(){  // DISPLAY FOUND CAR'S DETAILS ON HTML PAGE
       console.log('Found you a free car:');
       console.log(carsRightSpot[0].Make, carsRightSpot[0].Model, carsRightSpot[0].Year, carsRightSpot[0].Colour);
       console.log('in the closest carpark:');
