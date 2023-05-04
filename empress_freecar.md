@@ -70,23 +70,20 @@ JSON reformatting part was tedious for me, I needed to perform some JSON convers
 
 ### (3) Check if there is an available car in the closest carpark.
 
-Now that the JSON carlist the conversion is done, filtered out the (only) car that is in the choosen spot.
-You found which cars are in the closest carpark, now send a query for its details to see if it is available:
-```
-https://bookit.modo.coop/api/v2/car_list?car_id=28
-```
-Use `StartTime` and `EndTime` (convert to Epoch timestamps) to see if a car is available for 12 hours (between now and +44000 seconds). 44k secs is a little more than 12 hours, but making a choice and getting to the car also takes time. Cars can be booked well into the future, if a car has booked journeys it may not be relevant for you. If there are bookings on the car, the closest booking in time needs to have a `StartTime` of now plus 44000 secs in Epoch to be suitable for you. This is what a booked journey looks like:
-```
-"Location":[
-{"LocationID":"734","StartTime":"1683896400","EndTime":"1683932400"},
-{"LocationID":"734","StartTime":"1683205200","EndTime":"1683241200"}]
-```
+Now that the JSON carlist the conversion is done, filter out the (only) car that is in the choosen spot and also check if it is available:
+
 Nothing booked, free car:
 ```
 "Location":[{"LocationID":"602","StartTime":null,"EndTime":null}]
 ```
 Note that **both** need to be null. Your timezone in Victoria is America/Vancouver (PDT) and the offset (difference to Greenwich Time/GMT) is -07:00 or in seconds -25200.
 
+I am just checking if `StartTime` and `EndTime` are both `null`, which is a but blunt and works only if there is a free car. A sophisticated routine should use `StartTime` and `EndTime` (convert to Epoch timestamps) to see if a car is available for 12 hours (between now and +44000 seconds). 44k secs is a little more than 12 hours, but making a choice and getting to the car also takes time. Cars can be booked well into the future, if a car has booked journeys it may not be relevant for you. If there are bookings on the car, the closest booking in time needs to have a `StartTime` of now plus 44000 secs in Epoch to be suitable for you. This is what a booked journey looks like:
+```
+"Location":[
+{"LocationID":"734","StartTime":"1683896400","EndTime":"1683932400"},
+{"LocationID":"734","StartTime":"1683205200","EndTime":"1683241200"}]
+```
 If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list until you find one. Or theoretically there could be no cars in any of the carparks, then you need to enlarge your search radius. I found one car in that carpark all the time and it is never booked. I am not sure how likely this is, hope it is not a oversight on my part. I am not sure about it, I think if I found more cars in the nearest carpark, it would not break the flow but the HTML printout (step 5) would be messy. No cars would probably break it - this bit needs some improvement.
 ### (4) Get the full details of the closest carpark
 Now that we know there is a free car in it, get the closest carpark's details.
