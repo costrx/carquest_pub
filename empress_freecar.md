@@ -30,7 +30,7 @@ So, what comes back is a number of 3-digit `LocationID`s that are nearby, I got 
 
 The result that comes back is a *ranked list*, so the first one is the closest and the last one is the most far away carpark. 
 
-### (2) Query all the modo cars and narrow down the results to the chosen carpark. 
+### (2) Query all the modo cars and reformat JSON data. 
 This give you a gigantic list of Modo's active cars (almost 900) with all the car details and their booking information.
 ```
 https://bookit.modo.coop/api/v2/car_list
@@ -64,9 +64,9 @@ This is what one car entry looks like:
         ]
       }
 ```
-Use the `LocationID` obtained in the first step to and filter to the cars that are currently in that chosen location. 
+Later on, we use the `LocationID` obtained in the first step to and filter to the cars that are currently in that chosen location. 
 
-This part was fairly tedious for me, I needed to perform some JSON conversion on the received data process it later otherwise I could not search it well. What I got back from the API call seems to be a complex nested JSON object, and I needed a JSON array to feed to the search. There may be an easier solution than mine.
+JSON reformatting part was tedious for me, I needed to perform some JSON conversions on the received data process it later otherwise I could not search it well. What I get back from the API call seems to be a complex nested JSON object, and I need a JSON array to feed to the search. There may be an easier solution than mine.
 
 ### (3) Check if there is an available car in the closest carpark.
 
@@ -87,7 +87,7 @@ Nothing booked, free car:
 ```
 Note that **both** need to be null. Your timezone in Victoria is America/Vancouver (PDT) and the offset (difference to Greenwich Time/GMT) is -07:00 or in seconds -25200.
 
-If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list until you find one. Or theoretically there could be no cars and then you need to enlarge your search radius. I found one car in that carpark all the time and its never booked. I am not sure how likely this is, hope it is not a oversight on my part. I am not sure about it, I think more cars would not break the flow but the HTML printout (step 5) would be messy, no cars would probably break it - this bit needs some improvement.
+If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list until you find one. Or theoretically there could be no cars in any of the carparks, then you need to enlarge your search radius. I found one car in that carpark all the time and it is never booked. I am not sure how likely this is, hope it is not a oversight on my part. I am not sure about it, I think if I found more cars in the nearest carpark, it would not break the flow but the HTML printout (step 5) would be messy. No cars would probably break it - this bit needs some improvement.
 ### (4) Get the full details of the closest carpark
 Now that we know there is a free car in it, get the closest carpark's details.
 ```
