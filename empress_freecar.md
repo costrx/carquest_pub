@@ -88,7 +88,7 @@ Nothing booked, free car:
 ```
 Note that **both** need to be null. You timzone in Victoria is America/Vancouver (PDT) and the offset (difference to Greenwich Time/GMT) is -07:00 or in seconds -25200.
 
-If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list untill you find one. Or theoretically there could be no cars and then you need to enlarge your search radius. I found one car in that carpark all the time and its never booked. I am not sure how likely this is, hope it is not a oversight on my part. The code currently does not check for more cars, it may need some improvement in this aspect.
+If there are no available cars in the nearest carpark, start checking the second nearest one and proceed down that list untill you find one. Or theoretically there could be no cars and then you need to enlarge your search radius. I found one car in that carpark all the time and its never booked. I am not sure how likely this is, hope it is not a oversight on my part. I am not sure about it, I think more cars would not break the flow but the HTML printout (step 5) would be messy, no cars would probably break it - this bit needs some improvement.
 ### (4) Get the full details of the closest carpark
 Now that we know there is a free car in it, get the closest carpark's details.
 ```
@@ -116,7 +116,7 @@ Get the available cars' details to display the in the browser/app window. Make s
 ```
 https://bookit.modo.coop/api/v2/car_list?car_id=961
 ```
-I assumed there would be multiple finds/cars that you can choose from. If you come across this scenarion, you could also list accessories of the availble cars to help you choose.
+If there are multiple finds/cars, you could also list accessories of the availble cars to help you choose.
 
 ### Chrome and devtools for console log
 ![Chrome and devtools](chrome_devtool.png "Chrome and devtools")
